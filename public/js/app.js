@@ -18,18 +18,16 @@ weatherForm.addEventListener("submit", (e) => {
 
   if (location) {
     messageOne.textContent = "Searching for location...";
-    fetch("http://localhost:3000/weather?address=" + location).then(
-      (response) => {
-        response.json().then((data) => {
-          if (data.error) {
-            messageOne.textContent = data.error;
-            messageTwo.textContent = "";
-          }
-          messageOne.textContent = location;
-          messageTwo.textContent = data.forecast;
-        });
-      }
-    );
+    fetch("/weather?address=" + location).then((response) => {
+      response.json().then((data) => {
+        if (data.error) {
+          messageOne.textContent = data.error;
+          messageTwo.textContent = "";
+        }
+        messageOne.textContent = location;
+        messageTwo.textContent = data.forecast;
+      });
+    });
   } else {
     messageOne.textContent = "Please enter a valid location";
   }
